@@ -57,12 +57,12 @@ public class CreateUserLoginTests {
 
     @Test
     public void invalidMailErrorMessage() throws InterruptedException {
-        createUserLoginPage.insertEmail("wrongMail@mail.com");createUserLoginPage.insertPassword("pass12345pass");
+        createUserLoginPage.insertEmail("wrongMail@mail.com");
+        createUserLoginPage.insertPassword("pass12345pass");
         createUserLoginPage.clickGoButton();
 
         assertEquals("Authentication failed.", createUserLoginPage.getErrorMessage());
     }
-
 
     @Test
     public void invalidPasswordErrorMessage() throws InterruptedException {
@@ -84,7 +84,6 @@ public class CreateUserLoginTests {
         assertEquals("Invalid email or password entered.", createUserLoginPage.returnErrorList().get(0).getText());
 
     }
-
 
     @After
     public void tearDown() {

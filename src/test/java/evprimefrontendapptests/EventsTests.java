@@ -1,5 +1,6 @@
 package evprimefrontendapptests;
 
+import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.openqa.selenium.WebDriver;
@@ -37,9 +38,8 @@ public class EventsTests {
 
     }
 
-
     @Test
-    public void createAnEvent(){
+    public void createAnEvent() throws InterruptedException{
 
         sidePanel.clickLoginButton();
 
@@ -48,37 +48,34 @@ public class EventsTests {
 
         createUserLoginPage.insertEmail(mail);
         createUserLoginPage.insertPassword(pass);
-        Thread.sleep(5000);
         createUserLoginPage.clickChangeStateButton();
         createUserLoginPage.clickGoButton();
-        Thread.sleep(5000);
-
+        Thread.sleep(2000);
         sidePanel.clickLoginButton();
         Thread.sleep(5000);
         createUserLoginPage.insertEmail(mail);
         createUserLoginPage.insertPassword(pass);
-
         createUserLoginPage.clickGoButton();
+        Thread.sleep(2000);
         sidePanel.clickEventsButton();
+        Thread.sleep(3000);
         eventsPage.hoverPlusButton();
+        Thread.sleep(3000);
         eventsPage.clickAddEventButton();
 
         eventsPage.insertEventTitle("Test Event");
         eventsPage.insertEventImage("https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSsmOYmAVTiI17DEx9bUhoPsxp_mYrxqyqeFZt-5Wscdw&s");
         eventsPage.insertEventDate("2021-12-12");
         eventsPage.insertEventLocation("test location");
-        //eventsPage.insertEventDescription("test description");
-        //eventsPage.clickAddEventButton();
+        eventsPage.insertEventDescription("test description");
+        eventsPage.clickCreateEventButton();
     }
 
-
-    //precondition: create an event directly from the database
     @Test
     public void eventValidation() throws InterruptedException {
-        //eventsPage.clickFirstEventImage();
 
+        Thread.sleep(2000);
         eventsPage.chooseEvent(0);
-        Thread.sleep(5000);
 
         assertEquals("Event 1", eventPage.getEventTitle());
         assertEquals("24.02.2005", eventPage.getEventDate());
@@ -87,17 +84,16 @@ public class EventsTests {
 
     }
 
-    //precondition: create an event directly from the database
     @Test
     public void backToEventsButtonTest() throws InterruptedException {
-
+        Thread.sleep(2000);
         eventsPage.chooseEvent(0);
+
 
         assertEquals("http://localhost:3000/events", eventPage.getHrefFromBackToEventsButton());
         assertEquals("BACK TO EVENTS", eventPage.getTextFromBackToEventsButton());
     }
 
-    //precondition: create an event directly from the database
     @Test
     public void updateEventDateTest() throws InterruptedException {
         sidePanel.clickLoginButton();
@@ -107,29 +103,35 @@ public class EventsTests {
 
         createUserLoginPage.insertEmail(mail);
         createUserLoginPage.insertPassword(pass);
-        Thread.sleep(5000);
+        Thread.sleep(2000);
         createUserLoginPage.clickChangeStateButton();
         createUserLoginPage.clickGoButton();
-        Thread.sleep(5000);
+        Thread.sleep(2000);
 
         sidePanel.clickLoginButton();
-        Thread.sleep(5000);
+        Thread.sleep(2000);
         createUserLoginPage.insertEmail(mail);
         createUserLoginPage.insertPassword(pass);
-
+        Thread.sleep(5000);
         createUserLoginPage.clickGoButton();
+        Thread.sleep(5000);
         sidePanel.clickEventsButton();
         Thread.sleep(2000);
-//        eventsPage.chooseEvent(0);
+        eventsPage.chooseEvent(0);
 
         assertEquals("EDIT EVENT", eventPage.getEditEventButtonText());
         eventPage.clickEditButton();
+        Thread.sleep(2000);
         eventPage.eventTitleInsertText("- Football Match");
-
-        assertEquals("UPDATE EVENT", eventPage.getEditEventButtonText());
+        Thread.sleep(2000);
+        assertEquals("UPDATE EVENT", eventPage.getUpdateButtonText());
         eventPage.clickUpdateButton();
         Thread.sleep(2000);
         assertEquals("Event 1- Football Match", eventPage.getEventTitleFieldWhenLoggedIn());
     }
 
+    @After
+    public void tearDown() {
+        driver.quit();
+    }
 }

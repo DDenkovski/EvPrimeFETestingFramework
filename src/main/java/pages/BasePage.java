@@ -15,6 +15,8 @@ public abstract class BasePage {
         actions = new Actions(driver);
     }
 
+    public abstract BasePage newInstance(WebDriver driver);
+
     public void navigateTo(String url) {
         driver.get(url);
     }
@@ -27,7 +29,7 @@ public abstract class BasePage {
         return driver.findElement(element).getText();
     }
 
-    public void insertText(By element, String text){
+    public void insertText(By element, String text) {
         driver.findElement(element).sendKeys(text);
     }
 
@@ -61,5 +63,4 @@ public abstract class BasePage {
     public void clearField(By element) {
         driver.findElement(element).clear();
     }
-
 }

@@ -12,12 +12,19 @@ public class EventPage extends BasePage {
     private By eventDescription = By.xpath("//*[@id=\"root\"]/div/div/main/div[2]/div[2]/span");
     private By backToEventsButton = By.xpath("//*[@id=\"root\"]/div/div/main/div[2]/div[1]/div[2]/button/a");
     private By editButton = By.xpath("//*[@id=\"root\"]/div/div[1]/main/div[2]/div[1]/div[2]/button[1]");
+
     private By eventTitleField = By.name("title");
+
     private By eventDateField = By.name("date");
     private By updateButton = By.xpath("//*[@id=\"root\"]/div/div[1]/main/div[2]/form/div/button");
 
     public EventPage(WebDriver driver){
         super(driver);
+    }
+
+    @Override
+    public CreateUserLoginPage newInstance(WebDriver driver) {
+        return new CreateUserLoginPage(driver);
     }
 
     public String getEventTitle(){
@@ -48,8 +55,8 @@ public class EventPage extends BasePage {
         clickElement(editButton);
     }
 
-    public void eventTitleInsertText(String date){
-       insertText(eventTitleField, date);
+    public void eventTitleInsertText(String title){
+        insertText(eventTitleField, title);
     }
 
     public void clickUpdateButton(){

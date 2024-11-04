@@ -11,9 +11,13 @@ public class SidePanel extends BasePage{
     private By contactButton = By.xpath("//*[@id=\"root\"]/div/div/div/div/div/ul/li[3]/div/div[2]/span");
     private By loginButton = By.xpath("//*[@id=\"root\"]/div/div/div/div/div/ul/li[4]/div/div[2]/span");
     private By logoutButton = By.xpath("//*[@id=\"root\"]/div/div[1]/div/div/ul/li/div/div[2]/span");
-
     public SidePanel(WebDriver driver){
         super(driver);
+    }
+
+    @Override
+    public CreateUserLoginPage newInstance(WebDriver driver) {
+        return new CreateUserLoginPage(driver);
     }
 
     public void clickMenuIcon(){
@@ -51,5 +55,4 @@ public class SidePanel extends BasePage{
     public boolean isLoginButtonDisplayed(){
         return isElementDisplayed(loginButton);
     }
-
 }

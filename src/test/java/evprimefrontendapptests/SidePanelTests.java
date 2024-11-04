@@ -32,9 +32,14 @@ public class SidePanelTests {
         assertEquals("Login", sidePanel.getTextFromLoginButton());
     }
 
+    @Test
+    public void sidePanelFontTest(){
+        sidePanel.clickMenuIcon();
+
+    }
+
     @After
     public void tearDown() {
         driver.quit();
     }
-
 }
